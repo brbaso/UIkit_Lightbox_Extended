@@ -61,15 +61,13 @@ Structure of the example folder:
         
             <!-- Advanced components -->
             /components
-                .
-                .
-                .
+                ...
+                
                 <!-- Added files  -->
                 **lightbox-ext.js**
                 **lightbox-ext.min.js**
-                .
-                .
-                .
+                
+                ...
         
             <!-- Core components -->
             /core
