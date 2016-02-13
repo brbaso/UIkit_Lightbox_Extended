@@ -11,8 +11,8 @@ The project is entirely based and depends on the [UIkit front-end framework](htt
 
 You can find and download it at [http://getuikit.com/docs/documentation_get-started.html](http://getuikit.com/docs/documentation_get-started.html).
 
-Once downloded copy **lightbox-ext.js** and **lightbox-ext.min.js** files to the UIkit **js** folder so it can be 
-loaded and used later in a project.
+Once downloded copy **lightbox-ext.js** and **lightbox-ext.min.js** files to the UIkit's **js/components/** folder so it
+ can be loaded and used later in a project.
 
 ##Example
 
