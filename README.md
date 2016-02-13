@@ -41,16 +41,22 @@ Next you should make sure that you load all neccessary files to the gallery page
     <meta name="author" content="Slobodan Brbaklic">
     <title>Gallery - UIkit Lightbox exteneded - Modal with Related Items Grid</title>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:700,400">
+    
     <!-- load uikit.min.css -->
     <link rel="stylesheet" href="css/uikit.min.css">
+    
     <!-- main style sheet -->
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
+    
     <!-- load jquery lib -->
     <script src="js/jquery.min.js"></script>
+    
     <!-- load uikit.min.js -->
     <script src="js/uikit.min.js"></script>
+    
     <!-- load grid.js -->
     <script src="js/components/grid.min.js"></script>
+    
     <!-- load lightbox-ext.js, or lightbox-ext.min.js for production here -->
     <script src="js/components/lightbox-ext.js"></script>
     <!--script src="js/components/lightbox-ext.min.js"></script-->
