@@ -102,7 +102,7 @@ Let's take a look at **head.php** file to see how does it look like:
         <!-- load uikit.min.css - Main UIkit stylesheet -->
         <link rel="stylesheet" href="css/uikit.min.css">
         
-        <!-- main style sheet - for additional styling -->
+        <!-- main style sheet - custom stylesheet for additional styling -->
         <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
         
         <!-- load jquery lib - JQuery library  -->
