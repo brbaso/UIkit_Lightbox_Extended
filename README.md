@@ -28,7 +28,7 @@ Please see the [live example](http://brbaso.com/uikit-lightbox-extended/)
 Structure of the example folder:
 
     /example
-<!-- **UIkit standard folders/files**  -->
+**UIkit standard folders/files**
         /css
             <!-- UIkit with the basic style -->
             uikit.css
@@ -72,7 +72,9 @@ Structure of the example folder:
             <!-- Core components -->
             /core
         
-<!-- **Additional folder/files neded to make this example lives**  -->
+**Additional folder/files neded to make this example lives**
+    
+    ...
 
 
 Let's take a look at **head.php** file in the example to see how it should look like:
