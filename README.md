@@ -38,7 +38,7 @@ Structure of the example folder:
         
             <!-- UIkit with Gradient style -->
             uikit.gradient.css
-            uikit.gradient.min.css
+            uikit.gradient.min.css 
         
             <!-- UIkit with Almost flat style -->
             uikit.almost-flat.css
