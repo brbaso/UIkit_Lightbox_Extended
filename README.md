@@ -74,7 +74,7 @@ Structure of the example folder:
             <!-- Core components -->
             /core
         
-**Additional folder/files neded to make this example lives:**
+**Additional folder/files needed to make this example lives:**
         
         <!-- categorized images files for this example -->
         /images
