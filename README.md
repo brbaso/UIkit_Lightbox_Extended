@@ -91,7 +91,7 @@ Structure of the example folder:
 
 Let's take a look at **head.php** file to see how does it look like:
 
-```php
+```html
 
     <head>
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
