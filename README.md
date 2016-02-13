@@ -12,7 +12,8 @@ The project is entirely based and depends on the [UIkit front-end framework](htt
 You can find and download it at [http://getuikit.com/docs/documentation_get-started.html](http://getuikit.com/docs/documentation_get-started.html).
 
 Once downloded copy **lightbox-ext.js** and **lightbox-ext.min.js** files to the UIkit's **js/components/** folder so it
- can be loaded and used later in a project.
+ can be loaded and used later in a project(of course, you can choose different folder to place these files just 
+ change path in the head.php file accordingly).
 
 ##Example
 
@@ -74,11 +75,21 @@ Structure of the example folder:
             /core
         
 **Additional folder/files neded to make this example lives:**
+        
+        <!-- categorized images files for this example -->
+        /images
+        
+        /resource
+            <!-- sorce.php and data.php files - used to prepare data for rendering in the example  -->
+            data.php
+            sorce.php
     
-    ...
+    <!-- html header and main index file -->
+    head.php
+    index.php
 
 
-Let's take a look at **head.php** file in the example to see how it should look like:
+Let's take a look at **head.php** file in the example to see how does it look like:
 
 ```php
 
@@ -114,10 +125,10 @@ Let's take a look at **head.php** file in the example to see how it should look 
     </head>
 ```
 All comments are pretty much self explanatory and just to say here that this is almost standard use of UIkit 
-framework - the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production environment) instead
-of the original UIkit **lightbox.js** file.
+framework -  the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production 
+environment) instead of the original UIkit **lightbox.js** file.
 
-Also, there is main.css file loaded and used for additional styling of the gallery.
+Also, there is the main.css file loaded and used for additional styling inthe example.
 
 
  
