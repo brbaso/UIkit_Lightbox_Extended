@@ -128,7 +128,7 @@ All comments are pretty much self explanatory and just to say here that this is 
 framework -  the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production 
 environment) instead of the original UIkit **lightbox.js** file.
 
-Also, there is the main.css file loaded and used for additional styling inthe example.
+Also, there is the main.css file loaded and used for additional styling.
 
 
  
