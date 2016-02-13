@@ -26,6 +26,7 @@ Please see the [live example](http://brbaso.com/uikit-lightbox-extended/)
 ##Example explained
 
 Structure of the example folder:
+
     /example 
        <!-- **UIkit standard folders/files**  -->
         /css
