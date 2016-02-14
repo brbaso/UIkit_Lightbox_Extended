@@ -296,7 +296,7 @@ Also, there is the main.css file loaded and used for additional styling.
         </div>
     </div>
     
-    <script>    
+    <script>   
         /**
          * We need this script to make sure that when a different data grid filter is changed the lightbox 'group'
          * option  is assigned to the items which by their category belong to the filter chosen.
