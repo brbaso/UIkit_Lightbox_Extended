@@ -70,6 +70,14 @@ a:hover {
     padding: 15px;
 }
 
+.uk-modal-footer, .uk-modal-header {
+    background: #fff none repeat scroll 0 0;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 15px;
+}
+
 .uk-modal-header {
     border: 1px solid rgba(0, 0, 0, 0);
     border-top-left-radius: 3px;
@@ -78,14 +86,6 @@ a:hover {
     font-weight: bold;
     margin-bottom: 0;
     width: 100%;
-}
-
-.uk-modal-footer, .uk-modal-header {
-    background: #fff none repeat scroll 0 0;
-    font-size: 16px;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 15px;
 }
 
 .uk-modal-footer {
@@ -108,16 +108,16 @@ a:hover {
     padding-top: 15px;
 }
 
-.active_sibling {
-    width: auto;
-}
-
 .uk-related-header {
     color: #fff;
     font-size: 14px;
     font-weight: bold;
     margin-left: 0;
     padding: 0 0 5px 5px !important;
+    width: auto;
+}
+
+.active_sibling {
     width: auto;
 }
 
@@ -132,7 +132,6 @@ a:hover {
     height: 150px;
     line-height: 60px;
     color: rgba(255, 204, 0, 0.5);
-
     font-size: 90px;
     text-align: center;
 }
