@@ -86,7 +86,7 @@ Structure of the example folder:
     head.php
     index.php
 
-**UIkit standard folders/files** above are quite straight forward with addition of **lightbox-ext.js** and 
+**UIkit standard folders/files** above are quite straightforward with addition of **lightbox-ext.js** and 
 **lightbox-ext.min.js** files to the **js/components** folder to be aware.
 
 The **/images** folder contains image files organized into categories folders.
