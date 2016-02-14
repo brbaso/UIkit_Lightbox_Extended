@@ -123,7 +123,7 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                                             <?php echo $gi['short_content']; ?>
                                         </div>
 
-                                        <!-- adding some social buttons to grid box , not necessary but nice  -->
+                                        <!-- adding some social buttons to grid box , not necessary but nice   -->
                                         <div class="uk-width-1-1 gallery-social">
                                             <a class="uk-icon-button uk-icon-hover uk-icon-instagram  uk-align-right uk-margin-remove"
                                                href="#" target="_blank"></a>
