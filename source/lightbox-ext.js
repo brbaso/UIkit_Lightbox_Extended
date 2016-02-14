@@ -205,7 +205,7 @@
 
             /*
              define header and footer HTML/content
-             TODO - make social icons optional, and menagable - make them as input data or lightbox options ..?
+             TODO - make social icons optional, and manageable - make them as input data or lightbox options ..?
              */
             var hdr = '', ftr = '';
 
@@ -334,7 +334,7 @@
                 ].join('');
             }
 
-            // calculate width, add related grid width to vars defienition
+            // calculate width, add related grid width to vars definition
             var tmp = UI.$('<div>&nbsp;</div>').css({
                 'opacity': 0,
                 'position': 'absolute',
@@ -475,7 +475,7 @@
 
         },
 
-        // we need tthis to show sibling when clicked ( within related grid )
+        // we need this to show sibling when clicked ( within related grid )
         show_sibling: function (sidx) {
 
             this.show(sidx);
