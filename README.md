@@ -265,7 +265,7 @@ Also, there is the main.css file loaded and used for additional styling.
                                                 <?php echo $gi['short_content']; ?>
                                             </div>
     
-                                            <!-- adding som social buttons to grid box , not neccessary but nice  -->
+                                            <!-- adding some social buttons to grid box , not neccessary but nice  -->
                                             <div class="uk-width-1-1 gallery-social">
                                                 <a class="uk-icon-button uk-icon-hover uk-icon-instagram  uk-align-right uk-margin-remove"
                                                    href="#" target="_blank"></a>
