@@ -179,9 +179,9 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                     var cat;
                     cat = $('#modal_' + ix).attr('data-category');
 
-                    /* compare actual category data of the item with the clicked filter value;
-                    if data match assign its data category as a new lightbox group option - this is neccessary so
-                    we make sure that only grid elements within a category display when corresponding filter clicked */
+                    /* compare actual data-category attribyte value of the item with the clicked filter value;
+                     if data match assign its data category as a new lightbox group option - this is neccessary so
+                     we make sure that only grid elements within a category display when corresponding filter clicked */
                     if (cat == fltr) {
                         $(this).attr('data-uk-lightbox', '{group:\'' + cat + '\'}');
 
