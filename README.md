@@ -98,7 +98,7 @@ returns array with processed data ready for usage.
 
 It is to be said that both of previous files are here only in order to make this example works. Obviously the data 
 could be prepared in other way and acquired from another source(database or other) - all depending on your needs. The
- main and only goal here is to get final array of data ready to be used.
+main and only goal here is to get final array of data ready to be used.
  
 - **head.php** defines all files to load into page head section:
 
@@ -130,8 +130,8 @@ could be prepared in other way and acquired from another source(database or othe
         <!--script src="js/components/lightbox-ext.min.js"></script-->
     </head>
 ```
-All comments are pretty much self explanatory and just to say here that this is almost standard use of UIkit 
-framework -  the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production 
+All comments in the file are pretty much self explanatory and just to say here that this is almost standard use of 
+UIkit framework -  the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production 
 environment) instead of the original UIkit **lightbox.js** file.
 
 Also, there is the main.css file loaded and used for additional styling.
@@ -320,7 +320,7 @@ Also, there is the main.css file loaded and used for additional styling.
                         var cat;
                         cat = $('#modal_' + ix).attr('data-category');
     
-                        /* compare actual category data of the item with the clicked filter value;
+                        /* compare actual data-category attribyte value of the item with the clicked filter value;
                         if data match assign its data category as a new lightbox group option - this is neccessary so
                         we make sure that only grid elements within a category display when corresponding filter clicked */
                         if (cat == fltr) {
@@ -344,7 +344,9 @@ Also, there is the main.css file loaded and used for additional styling.
 
 
 ```
+In this file we used prepared data to assign all lightbox-ext attributes. It is explained in comments as much clearly
+ as possible. At the bottom(before close body tag) we added a bit more javascript in order to handle  display of right category images in modal related items area.
  
+Please feel free to install the example as described above and try to play with data to get a better idea how it works.
 
-** more to come .... **
 
