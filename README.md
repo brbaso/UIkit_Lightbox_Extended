@@ -82,7 +82,7 @@ Structure of the example folder:
             data.php
             sorce.php
     
-    <!-- html header and main index file -->
+    <!-- html head and main index file -->
     head.php
     index.php
 
