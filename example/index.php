@@ -156,7 +156,6 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 </div>
 
 <script>
-
     /**
      * We need this script to make sure that when a different data grid filter is changed the lightbox 'group'
      * option  is assigned to the items which by their category belong to the filter chosen.
