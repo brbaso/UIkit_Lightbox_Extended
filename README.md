@@ -43,6 +43,9 @@ Structure of the example folder:
             <!-- UIkit with Almost flat style -->
             uikit.almost-flat.css
             uikit.almost-flat.min.css
+            
+             <!-- Added stylesheet for additional styling  -->
+             main.css
         
             <!-- Advanced components -->
             /components
@@ -87,7 +90,8 @@ Structure of the example folder:
     index.php
 
 **UIkit standard folders/files** above are quite straightforward with addition of **lightbox-ext.js** and 
-**lightbox-ext.min.js** files to the **js/components** folder to be aware.
+**lightbox-ext.min.js** files to the **js/components** folder to be aware. Also, there is the **css/main.css** file 
+added for additional styling.
 
 The **/images** folder contains image files organized into categories folders.
 
@@ -133,8 +137,6 @@ main and only goal here is to get final array of data ready to be used.
 All comments in the file are pretty much self explanatory and just to say here that this is almost standard use of 
 UIkit framework -  the only difference is that we load **lightbox-ext.js**(or **lightbox-ext.min.js** for production 
 environment) instead of the original UIkit **lightbox.js** file.
-
-Also, there is the main.css file loaded and used for additional styling.
 
 - **index.php** is our main file where we assign data attributes needed for lightbox-ext functionality:
 
