@@ -22,7 +22,7 @@ The best way to see how UIkit lightbox extended component works is to browse the
 Download zip file, unpack it and upload the 'example' folder to your PHP enabled server (php 5.4.x or higher). Once it
 is finished point your browser to the 'example' folder, e.g. yourdomain/example, and you should see the gallery example. 
  
-Please see the [live example](http://brbaso.com/uikit-lightbox-extended/)
+Please see the [live example](http://brbaso.com/uikit-lightbox-extended/)( Look and feel of the example thanks to original design idea by [taylordesigned.com]( http://taylordesigned.com/) ).
 
 ##Example explained
 
