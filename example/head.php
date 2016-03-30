@@ -17,7 +17,7 @@
 
     <!-- load jquery lib -->
     <script src="js/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script> 
 
     <!-- load uikit.min.js -->
     <script src="js/uikit.min.js"></script>
