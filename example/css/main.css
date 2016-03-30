@@ -7,6 +7,39 @@ html, body {
     color: #999;
 }
 
+/*      ******************************/
+.uk-lightbox-related{
+    position:relative;
+    overflow:hidden;
+   /*
+     margin:50px;height:200px;
+    width:180px;
+    background:#ddd;*/
+}
+
+#sub_grid{
+    overflow-y:scroll;
+    position:absolute;
+    padding:0 17px 0 0;
+    width: 260px;
+    height:100%;
+}
+.scrollbar{
+    cursor:n-resize;
+    position:absolute;
+    overflow:auto;
+    top:0px;
+    right: 0px;
+    z-index:2;
+    background: #fc0;
+    width: 5px;
+    border-radius:8px;
+}
+.source{
+    width: 100%;
+}
+/*      ******************************/
+
 a:hover {
     color: #06c !important;
     cursor: pointer;
@@ -235,9 +268,18 @@ a:hover {
         /*width: 100%;*/
     }
 
+    .source {
+        max-width: 100%;
+        width: auto;
+    }
+
     #sub_grid {
-        padding: 3px;
         box-sizing: border-box;
+        height: 100%;
+        overflow-y: inherit;
+        padding: 3px;
+        position: relative;
+        width: 100%;
     }
 
     #related_grid {
