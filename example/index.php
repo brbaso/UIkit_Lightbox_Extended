@@ -13,7 +13,7 @@ require_once('head.php');
 require_once('resource/source.php');
 
 /**
- * Data class to handle sorce data and form an array ready for use
+ * Data class to handle source data and form an array ready for use
  */
 require_once('resource/data.php');
 
@@ -41,16 +41,16 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                     <ul class="uk-subnav uk-subnav-pill slide-menus" id="filter">
 
                         <!-- First filter is All, to display all items -->
-                        <li data-uk-filter="" class="uk-active category-button">
+                        <li data-uk-filter=""  data-catname="All" class="uk-active category-button">
                             <a href="#">All</a>
                         </li>
 
                         <!-- loop through the gallery items array and find categories to form grid filters -->
                         <?php foreach ($gallery_items['categories'] as $cat) { ?>
 
-                            <li data-uk-filter="<?php echo $cat; ?>" class="category-button">
+                            <li data-uk-filter="<?php echo $cat['cat_slug']; ?>" data-catname="<?php echo $cat['cat_name']; ?>" class="category-button">
                                 <a class="" href="#">
-                                    <?php echo $cat; ?>
+                                    <?php echo $cat['cat_name']; ?>
                                 </a>
                             </li>
 
@@ -63,7 +63,7 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
                         <?php
                         /**
-                         * loop through the gallery items array and assign all data neccesary to get the extended
+                         * loop through the gallery items array and assign all data necessary to get the extended
                          * lightbox functionality
                          */
                         $i = 0;
@@ -81,6 +81,7 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                                      - class: class popups, important because we will loop through all 'popups' when
                                        category filter changed
                                      - data-category: data category , needed later when we loop through all popups
+                                     - data-category-name: category name, initialy it is "All"
                                      - data-uk-lightbox: default lightbox group, on page load it is all - to display
                                         all items
                                      - data-lightbox-type: lightbox type - image, video, you tube or vimeo
@@ -99,11 +100,12 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                                         id="modal_<?php echo $i; ?>"
                                         class="popups"
                                         data-category="<?php echo $gi['category_urlkey']; ?>"
+                                        data-category-name="All"
                                         data-uk-lightbox="{group:'all'}"
                                         data-lightbox-type="<?php echo $gi['type']; ?>"
                                         data-date="&copy;<?php echo $gi['author']; ?>, Posted on <?php echo $gi['date']; ?>"
-                                        data-lightbox-thumb="<?php echo ($gi['type'] == 'image') ? $url . 'images/' . $gi['category_urlkey'] . '/' . $gi['thumb'] : $gi['thumb']; ?>"
-                                        data-lightbox-href="<?php echo ($gi['type'] == 'image') ? $url . 'images/' . $gi['category_urlkey'] . '/' . $gi['image'] : $gi['image']; ?>"
+                                        data-lightbox-thumb="<?php echo ($gi['type'] == 'image') ? $url . 'images/' .$gi['dir'] . '/' . $gi['thumb'] : $gi['thumb']; ?>"
+                                        data-lightbox-href="<?php echo ($gi['type'] == 'image') ? $url . 'images/' .$gi['dir'] . '/' . $gi['image'] : $gi['image']; ?>"
                                         data-lightbox-header="<?php echo $gi['name']; ?>"
                                         data-lightbox-footer="<?php echo $gi['content']; ?>"
                                         >
@@ -112,7 +114,7 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                                      itself as a thumb actually (defined in the Data class ),
                                     and if not an image we use defined thumbs from within
                                     data source (for youtube, video, vimeo ) -->
-                                        <img src="<?php echo ($gi['type'] == 'image') ? $url . 'images/' . $gi['category_urlkey'] . '/' . $gi['thumb'] : $gi['thumb']; ?>">
+                                        <img src="<?php echo ($gi['type'] == 'image') ? $url . 'images/' . $gi['dir'] .'/' . $gi['thumb'] : $gi['thumb']; ?>">
                                     </a>
 
                                     <!-- define grid boxes -->
@@ -160,17 +162,19 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
      * We need this script to make sure that when a different data grid filter is changed the lightbox 'group'
      * option  is assigned to the items which by their category belong to the filter chosen.
      * On page load default filter and group option is 'all' - all gallery items are displayed .
+     * Also we need to change category names assigned by changing the filter
      */
     $(document).ready(function () {
 
         /** click on the grid filter(category) button*/
         $('.category-button').on('click', function (e) {
 
-            var fltr;
+            var fltr, cat_name;
             e.preventDefault();
 
-            /* get data filter attribute value*/
+            /* get data filter attribute and data category name attributes values*/
             fltr = $(this).attr('data-uk-filter');
+            cat_name =  $(this).attr('data-catname');
 
             /* loop through all 'popups' - all grid items displayed */
                 $('.popups').each(function (ix) {
@@ -179,16 +183,20 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                     var cat;
                     cat = $('#modal_' + ix).attr('data-category');
 
-                    /* compare actual data-category attribyte value of the item with the clicked filter value;
-                     if data match assign its data category as a new lightbox group option - this is neccessary so
-                     we make sure that only grid elements within a category display when corresponding filter clicked */
+                    /* compare actual data-category attribute value of the item with the clicked filter value;
+                     if data match assign its data category as a new lightbox group option - this is necessary so
+                     we make sure that only grid elements within a category display when corresponding filter clicked
+                     Also, it applies to category names
+                     */
                     if (cat == fltr) {
                         $(this).attr('data-uk-lightbox', '{group:\'' + cat + '\'}');
+                        $(this).attr('data-category-name', cat_name );
 
-                    /* if date don't match we just assign value 'all' as the lightbox group option and show all grid
+                    /* if data don't match we just assign value 'all' as the lightbox group option and show all grid
                      items */
                     } else {
                         $(this).attr('data-uk-lightbox', '{group:\'all\'}');
+                        $(this).attr('data-category-name', 'All' );
                     }
 
                 });
