@@ -44,12 +44,13 @@ class Data
 
         foreach ($src as $cat => $itms) {
 
-            $categories[] = $cat;
-            $j = 1;
+            // collect data for categories
+            $categories[] = ['cat_name' => $cat, 'cat_slug' => $this->sluggify($cat)];
 
+            $j = 1;
             foreach ($itms as $item) {
 
-                $category_name = ucfirst($cat);
+                $category_name = $cat;
 
                     //find if image and get data
                 if ($item['type'] == 'image' & preg_match('/\bjpg\b|\bjpeg\b|\bpng\b|\bgif\b|\bsvg\b/i', $item['name'])) {
@@ -57,6 +58,7 @@ class Data
                     $itm_name = ucfirst($it[0]);
                     $itm_urlkey = $it[0];
                     $image = $item['name'];
+                    $dir =  $item['dir'];
                     // image thumb - we use the image itself in this example
                     $thumb = $item['name'];
 
@@ -65,6 +67,7 @@ class Data
                     $itm_name = ucfirst($item['type'] . '-' . $j . '-' . $i);
                     $itm_urlkey = $item['type'] . '-' . $j . '-' . $i;
                     $image = $item['name'];
+                    $dir =  '';
                     // youtube thumb
                     $thumb = $item['thumb'];
 
@@ -73,6 +76,7 @@ class Data
                     $itm_name = ucfirst($item['type'] . '-' . $j . '-' . $i);
                     $itm_urlkey = $item['type'] . '-' . $j . '-' . $i;
                     $image = $item['name'];
+                    $dir =  '';
                     // video thumb
                     $thumb = $item['thumb'];
 
@@ -81,6 +85,7 @@ class Data
                     $itm_name = ucfirst($item['type'] . '-' . $j . '-' . $i);
                     $itm_urlkey = $item['type'] . '-' . $j . '-' . $i;
                     $image = $item['name'];
+                    $dir =  '';
                     // vimeo thumb
                     $thumb = $this->getVimeoThumb($item['vid']);
                 }
@@ -101,13 +106,14 @@ class Data
                     'item_id' => $j . $i,
                     'type' => $item['type'],
                     'category' => $i,
-                    'category_urlkey' => $cat,
-                    'category_name' => $category_name,
+                    'category_urlkey' => $categories[$i-1]['cat_slug'],
+                    'category_name' => $categories[$i-1]['cat_name'],
                     'name' => $itm_name,
                     'urlkey' => $itm_urlkey,
                     'short_content' => 'Shortly about ' . $itm_name,
                     'content' => 'Some more information about what it is all about in the ' . $itm_name . ' or some other info',
                     'image' => $image,
+                    'dir' =>  $dir ,
                     'thumb' => $thumb,
                     'author' => $item['author'],
                     'date' => $date
@@ -156,5 +162,20 @@ class Data
         $data = file_get_contents("http://vimeo.com/api/v2/video/$id.json");
         $data = json_decode($data);
         return $data[0]->thumbnail_large;
+    }
+
+    /**
+     * 'Sluggifies' input string
+     *
+     * $string - input string to turn into urlkey
+     * returns $urlkey , sluggified string
+     */
+    public function sluggify($string, $separator = '-', $maxLength = 96) {
+        $urlkey = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        $urlkey = preg_replace("%[^-/+|\w ]%", '', $urlkey);
+        $urlkey = strtolower(trim(substr($urlkey, 0, $maxLength), '-'));
+        $urlkey = preg_replace("/[\/_|+ -]+/", $separator, $urlkey);
+
+        return $urlkey;
     }
 }
