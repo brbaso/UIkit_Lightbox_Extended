@@ -1,5 +1,6 @@
 /*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* Extended version, showing related items grid using UIkit Grid component */
+
 (function (addon) {
 
     var component;
@@ -38,7 +39,6 @@
                 e.preventDefault();
 
                 var link = UI.$(this);
-
 
                 if (!link.data("lightbox")) {
 
@@ -87,13 +87,15 @@
 
                     siblings.push({
 
-                        // adding here neccessary data attributes
+                        // adding here necessary data attributes
                         'source': ele.attr('data-lightbox-href'),
                         'thumb': ele.attr('data-lightbox-thumb'),
                         'header': ele.attr('data-lightbox-header'),
                         'footer': ele.attr('data-lightbox-footer'),
+                        'cat_slug':ele.attr('data-category'),
+                        'cat_name': ele.attr('data-category-name'),
                         'date': ele.attr('data-date'),
-                        'type': ele.attr("data-lightbox-type") || 'auto',
+                        'type': ele.attr('data-lightbox-type') || 'auto',
                         'link': ele,
                         'sblng_index': elidx
                     });
@@ -105,8 +107,6 @@
             } else if (this.options.group && this.options.group.length) {
                 this.siblings = this.options.group;
             }
-
-
             this.trigger('lightbox-init', [this]);
         },
 
@@ -138,9 +138,11 @@
                         'thumb': ele.attr('data-lightbox-thumb'),
                         'header': ele.attr('data-lightbox-header'),
                         'footer': ele.attr('data-lightbox-footer'),
+                        'cat_slug':ele.attr('data-category'),
+                        'cat_name': ele.attr('data-category-name'),
                         'visitlink': ele.attr('data-lightbox-visitlink'),
                         'date': ele.attr('data-date'),
-                        'type': ele.attr("data-lightbox-type") || 'auto',
+                        'type': ele.attr('data-lightbox-type') || 'auto',
                         'link': ele,
                         'sblng_index': elidx
                     });
@@ -180,26 +182,28 @@
 
             item = this.siblings[index];
 
-            // define data object here with all neccessary additions
+            // define data object here with all necessary additions
             data = {
-                "lightbox": $this,
-                "source": item.source,
-                "header": item.header,
-                "footer": item.footer,
-                "date": item.date,
-                "type": item.type,
-                "index": index,
-                "promise": promise,
-                "item": item,
-                "meta": {
-                    "content": '',
-                    "hdr": '',
-                    "ftr": '',
-                    "related": '',
-                    "width": null,
-                    "height": null,
-                    "r_width": null,
-                    "r_height": null
+                'lightbox': $this,
+                'source': item.source,
+                'header': item.header,
+                'footer': item.footer,
+                'cat_slug':item.cat_slug,
+                'cat_name': item.cat_name,
+                'date': item.date,
+                'type': item.type,
+                'index': index,
+                'promise': promise,
+                'item': item,
+                'meta': {
+                    'content': '',
+                    'hdr': '',
+                    'ftr': '',
+                    'related': '',
+                    'width': '',
+                    'height': '',
+                    'r_width': '',
+                    'r_height': ''
                 }
             };
 
@@ -211,15 +215,11 @@
 
             if (data.header) {
 
-                hdr = '<div class="uk-modal-head uk-margin-remove">\
-								<div class="uk-modal-header uk-grid uk-margin-remove" style=""><div class="uk-width-large-7-10">' + data.header + '</div>\
-								<div class="uk-width-large-3-10 uk-padding-remove" >\
-								<a class="uk-icon-button uk-icon-hover uk-icon-instagram  uk-align-right uk-margin-remove" href="#" target="_blank"></a>\
-								<a class="uk-icon-button uk-icon-hover uk-icon-pinterest  uk-align-right uk-margin-remove" href="#" target="_blank"></a>\
-								<a class="uk-icon-button uk-icon-hover uk-icon-twitter  uk-align-right uk-margin-remove" href="#" target="_blank"></a>\
-								<a class="uk-icon-button uk-icon-hover uk-icon-facebook  uk-align-right uk-margin-remove" href="#" target="_blank"></a>\
-								</div>\
-								</div>';
+                var s_b = UI.$('div[data-uk-filter='+data.cat_slug+']').find('.gallery-social').html() ;
+
+                hdr = ' <div class="uk-modal-head uk-margin-remove">\
+                        <div class="uk-modal-header uk-grid uk-margin-remove" style=""><div class="uk-width-large-7-10">' + data.header + '</div>\
+                        <div class="uk-width-large-3-10 uk-padding-remove" >'+s_b+'</div></div>';
             }
 
             if (data.footer) {
@@ -275,7 +275,6 @@
 
                 // for each image, add a deferred object to the array which resolves when the image is loaded (or if loading fails)
                 var dfds = [];
-                var im = [];
 
                 $imgs.each(function () {
 
@@ -295,8 +294,49 @@
                 $.when.apply($, dfds).then(function () {
 
                     // images are there let's fire the UIKit grid
-                    UIkit.grid(UI.$('#related_grid'), {gutter: 5});
+                    var grid = UIkit.grid(UI.$('#related_grid'), {gutter: 5});
 
+                    // add  nice scroll bar to 'related' container
+                    if (data.meta.maxwidth > 738) {
+
+                        var modal_header_height = ($this.modal.dialog.find('.uk-modal-header').outerHeight(true)) ? $this.modal.dialog.find('.uk-modal-header').outerHeight(true) : 0,
+                            image_footer_height = ($this.modal.dialog.find('.image-footer').outerHeight(true)) ? $this.modal.dialog.find('.image-footer').outerHeight(true) : 0,
+                            modal_footer_height = ($this.modal.dialog.find('.uk-modal-footer').outerHeight(true)) ? $this.modal.dialog.find('.uk-modal-footer').outerHeight(true) : 0,
+                            total_content_height,
+                            scroll_parent = $this.modal.dialog.find('.uk-lightbox-related'),
+                            h = $this.modal.dialog.find('.source').height();
+
+                        $('#related_grid').promise().done(function () {
+
+                            total_content_height = $('#related_grid').height();
+                            scroll_parent.height(h + modal_header_height + image_footer_height + modal_footer_height);
+
+                            var scrollable = $this.modal.dialog.find('#sub_grid'),
+                                scrollbar = $this.modal.dialog.find('.scrollbar'),
+                                H = scrollable.height(),
+                                sH = scrollable[0].scrollHeight,
+                                sbH = H * H / sH;
+
+                            if (total_content_height > (h + modal_header_height + image_footer_height + modal_footer_height)) {
+
+                                scrollbar.height(sbH).draggable({
+                                    axis: 'y',
+                                    containment: 'parent',
+                                    drag: function (e, ui) {
+                                        scrollable.scrollTop(sH / (H) * ui.position.top);
+                                    }
+                                });
+
+                                scrollable.on("scroll", function () {
+                                    scrollbar.css({top: scrollable.scrollTop() / H * sbH});
+                                });
+                            }
+
+                            //uk-lightbox-related - correct related height to match content height
+                            $this.modal.related.css('height', 'auto');
+
+                        });
+                    }
                 });
 
             }).fail(function () {
@@ -344,12 +384,14 @@
                 'max-width': $this.modal.dialog.css('max-width'),
                 'padding': $this.modal.dialog.css('padding'),
                 'margin': $this.modal.dialog.css('margin')
-            }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height, r_w = data.meta.r_width, r_h = data.meta.r_height;
+            }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height, r_w = data.meta.r_width;
 
             tmp.appendTo('body').width();
 
             maxwidth = tmp.width();
             maxheight = window.innerHeight - dpad;
+
+            data.meta.maxwidth = maxwidth;
 
             // define here related grid width depending on responsive break point (768 px)
             if (maxwidth <= 738) {
@@ -372,6 +414,7 @@
             this.modal.dialog.find('.uk-related-header').remove();
             this.modal.dialog.find('.uk-modal-footer').remove();
             this.modal.dialog.find('.td.uk-button').remove();
+            this.modal.dialog.find('.scrollbar').remove();
 
             if (maxwidth < data.meta.width) {
 
@@ -387,14 +430,14 @@
 
             }
 
-
             // add content
             this.modal.content.css('opacity', 0).width(w).html(content);
             this.modal.dialog.find('.uk-modal-head').css('opacity', 0);
 
             //  and related content
             this.modal.related.width(r_w).html(related);
-            this.modal.related.prepend('<div class="uk-related-header  uk-padding-remove"> Related Images</div>');
+
+            this.modal.related.prepend('<div class="uk-related-header  uk-padding-remove"> Category: '+data.cat_name+'</div>');
 
             this.modal.closer.addClass('uk-hidden');
 
@@ -402,11 +445,11 @@
                 duration = 0;
             }
 
-            var dh = h + pad,
-                t = Math.floor(window.innerHeight / 2 - dh / 2) - dpad;
+            var dh = $this.modal.dialog.find('.uk-lightbox-content').outerHeight(),
+                t = Math.floor(window.innerHeight / 2 - dh / 2) ;
 
             // recalculate here height since we could have active header, image footer and modal footer with their own heights
-            // we do it only for screens wider that 768px
+            // we do it only for screens wider than 768px
             if (maxwidth > 738) {
 
                 var modal_header_height = $this.modal.dialog.find('.uk-modal-header').outerHeight(),
@@ -414,14 +457,10 @@
                     modal_footer_height = $this.modal.dialog.find('.uk-modal-footer').outerHeight();
 
                 if (maxheight < (h + modal_header_height + image_footer_height + modal_footer_height + t)) {
-
                     t = 10;
-                    h = Math.floor(maxheight) - modal_header_height - image_footer_height - modal_footer_height - t;
+                    h = Math.floor(maxheight) - modal_header_height - image_footer_height - modal_footer_height - 3*t;
                     w = Math.ceil(data.meta.width * (h / data.meta.height));
                 }
-
-                $this.modal.dialog.find('.source').height(h);
-
             } else {
 
                 t = 10;
@@ -434,7 +473,7 @@
                 var frame_width = this.modal.content.find('iframe:first').width();
                 var frame_height = this.modal.content.find('iframe:first').height();
 
-                // handle some big iframes, for respnsive > 768px
+                // handle some big iframes, for responsive > 768px
                 if (maxwidth > 738) {
 
                     if (maxwidth < (frame_width + r_w + 40) || maxheight < (frame_height + modal_header_height + image_footer_height + modal_footer_height + t)) {
@@ -510,7 +549,7 @@
                         // added all meta to data object
                         data.meta = {
                             'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<img class="uk-padding-remove uk-align-center source " src ="' + source + '"><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
-                            'related': '<div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
+                            'related': '<div class="scrollbar"></div><div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
                             'width': width,
                             'height': height
                         };
@@ -519,7 +558,6 @@
                         data.promise.resolve();
 
                     };
-
 
                     if (!cache[data.source]) {
 
@@ -580,8 +618,8 @@
 
                     // added all meta to data object
                     data.meta = {
-                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<iframe src="//www.youtube.com/embed/' + id + '" width="' + width + '" height="' + height + '" style="max-width:100%;"></iframe><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
-                        'related': '<div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
+                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<iframe class="source" src="//www.youtube.com/embed/' + id + '" width="' + width + '" height="' + height + '" style="max-width:100%;"></iframe><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
+                        'related': '<div class="scrollbar"></div><div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
                         'width': width,
                         'height': height
                     };
@@ -638,20 +676,16 @@
 
                         img.src = '//img.youtube.com/vi/' + id + '/maxresdefault.jpg';
 
-
                     } else {
                         resolve(id, data.meta.related, cache[id].width, cache[id].height);
 
                         // highlight the 'active' sibling
                         UI.$('.sibling').each(function () {
-
                             if ($(this).data('sibling-index') == data.index) {
                                 $(this).addClass('sibling-highlight');
                             }
-
                         });
                     }
-
                     e.stopImmediatePropagation();
                 }
             });
@@ -671,8 +705,8 @@
 
                     // added all meta to data object
                     data.meta = {
-                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<iframe src="//player.vimeo.com/video/' + id + '" width="' + width + '" height="' + height + '" style="width:100%;box-sizing:border-box;"></iframe><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
-                        'related': '<div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
+                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<iframe class="source" src="//player.vimeo.com/video/' + id + '" width="' + width + '" height="' + height + '" style="width:100%;box-sizing:border-box;"></iframe><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
+                        'related': '<div class="scrollbar"></div><div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
                         'width': width,
                         'height': height
                     };
@@ -705,10 +739,8 @@
                                     }
 
                                 });
-
                             }
                         });
-
 
                     } else {
                         resolve(id, data.meta.related, cache[id].width, cache[id].height);
@@ -719,10 +751,8 @@
                             if ($(this).data('sibling-index') == data.index) {
                                 $(this).addClass('sibling-highlight');
                             }
-
                         });
                     }
-
                     e.stopImmediatePropagation();
                 }
             });
@@ -740,8 +770,8 @@
 
                     // added all meta to data object
                     data.meta = {
-                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<video class="uk-responsive-width" src="' + source + '" width="' + width + '" height="' + height + '" controls></video><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
-                        'related': '<div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
+                        'content': '<div data-active-sibling="' + data.index + '" class="uk-width-1-1 active_sibling">' + data.meta.hdr + '<video class="uk-responsive-width source" src="' + source + '" width="' + width + '" height="' + height + '" controls></video><div data-active-sibling="' + data.index + '" class="uk-width-1-1 image-footer">' + data.date + '</div>' + data.meta.ftr + '</div>',
+                        'related': '<div class="scrollbar"></div><div id="sub_grid" class="uk-width-1-1">' + related + '</div>',
                         'width': width,
                         'height': height
                     };
@@ -777,7 +807,6 @@
 
                         }, 20);
 
-
                     } else {
                         resolve(data.source, data.meta.related, cache[data.source].width, cache[data.source].height);
 
@@ -787,9 +816,7 @@
                             if ($(this).data('sibling-index') == data.index) {
                                 $(this).addClass('sibling-highlight');
                             }
-
                         });
-
                     }
                 }
             });
